@@ -20,9 +20,6 @@ client = OpenAI()
 # 5. Return result
 
 
-
-
-
 def get_num_tokens(prompt, model="gpt-4o-mini"):
     """Calculates the number of tokens in a text prompt"""
     enc = tiktoken.encoding_for_model(model)
@@ -147,7 +144,8 @@ def execute_verification_plan(claim: str, plan: VerificationPlan) -> tuple[Outpu
     research_output = ""
     agent_tokens_used = 0
     for step in plan.plan:
-        agent_prompt = f"Verify this claim: {claim} by executing this step: {step.step_to_verify}. Perform at most 3 web searches and return a concise and clear response."
+        agent_prompt = f"Verify this claim: {claim} by executing this step: {step.step_to_verify}.\
+            Perform at most 3 web searches and return a concise and clear response."
         result = agent_executor.invoke({
             "input": agent_prompt,
             "agent_scratchpad": []
@@ -228,7 +226,6 @@ def main():
     # Remove the global declaration since we're using module-level token_tracker
     results = process_claims(expression_with_statement)
     print(results)
-    
 
 
 if __name__ == "__main__":
